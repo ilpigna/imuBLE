@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="arduino101-iot">
+<head>
+  <meta name="viewport" content="initial-scale=1"/>
+  <title>arduino101-iot</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <!-- main -->
+    <div class="container">
+      <div class="col-sm-4 col-sm-offset-4">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Accelerometer</h3>
+          </div>
+          <div class="panel-body">
+            <div class="sensor-value">
+              <span id="ax-label">ax: </span>
+              <span id="ax-value">0.0</span>
+            </div>
+
+            <div class="sensor-value">
+              <span id="ay-label">ay: </span>
+              <span id="ay-value">0.0</span>
+            </div>
+
+            <div class="sensor-value">
+              <span id="az-label">az: </span>
+              <span id="az-value">0.0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Gyroscope</h3>
+          </div>
+          <div class="panel-body">
+            <div class="sensor-value">
+              <span id="gx-label">gx: </span>
+              <span id="gx-value">0.0</span>
+            </div>
+
+            <div class="sensor-value">
+              <span id="gy-label">gy: </span>
+              <span id="gy-value">0.0</span>
+            </div>
+
+            <div class="sensor-value">
+              <span id="gz-label">gz: </span>
+              <span id="gz-value">0.0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end main -->
+
+<script src="node_modules/socket.io-client/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+  var socket = io('http://localhost:8000')
+
+  socket.on('alert', function(data) {
+    console.log(data)
+  })
+  socket.emit('click', "client connected")
+
+  socket.on('ax:', function(data) {
+    document.getElementById('ax-value').innerText = data;
+  });
+
+  socket.on('ay:', function(data) {
+    document.getElementById('ay-value').innerText = data;
+  });
+  socket.on('az:', function(data) {
+    document.getElementById('az-value').innerText = data;
+  });
+
+  socket.on('gx:', function(data) {
+    document.getElementById('gx-value').innerText = data;
+  });
+
+  socket.on('gy:', function(data) {
+    document.getElementById('gy-value').innerText = data;
+  });
+
+  socket.on('gz:', function(data) {
+    document.getElementById('gz-value').innerText = data;
+  });
+
+
+</script>
+
+
+
+</body>
+</html>
